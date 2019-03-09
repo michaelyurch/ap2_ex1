@@ -11,13 +11,13 @@ namespace Excercise_1
 
         Func<double, double> Function { get; }
 
-        string nameVal;
-        string typeVal;
+        string NameVal;         // holds name of function
+        string TypeVal;         // holds type of function
 
         public SingleMission(Func<double, double> _function, string _name)
         {
-            this.nameVal = _name;
-            this.typeVal = "Single";
+            this.NameVal = _name;
+            this.TypeVal = "Single";
             Function = _function;
         }
 
@@ -25,7 +25,7 @@ namespace Excercise_1
         {
             get
             {
-                return this.nameVal;
+                return this.NameVal;
             }
         }
 
@@ -33,7 +33,7 @@ namespace Excercise_1
         {
             get
             {
-                return this.typeVal;
+                return this.TypeVal;
             }
         }
 
@@ -41,7 +41,7 @@ namespace Excercise_1
 
         public double Calculate(double value)
         {
-            OnCalculate?.Invoke(this, value); 
+            OnCalculate?.Invoke(this, this.Function(value));    // calculation has been handeled
             return this.Function(value);
         }
     }

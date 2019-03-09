@@ -10,13 +10,13 @@ namespace Excercise_1
     {
         List<Func<double, double>> listOfMissions;
 
-        string nameVal;
-        string typeVal;
+        string NameVal;         // holds name of function
+        string TypeVal;         // holds type of function
 
         public ComposedMission(string _name)
         {
-            this.nameVal = _name;
-            this.typeVal = "Composed";
+            this.NameVal = _name;
+            this.TypeVal = "Composed";
             this.listOfMissions = new List<Func<double, double>>();
         }
 
@@ -24,7 +24,7 @@ namespace Excercise_1
         {
             get
             {
-                return this.nameVal;
+                return this.NameVal;
             }
         }
 
@@ -32,7 +32,7 @@ namespace Excercise_1
         {
             get
             {
-                return this.typeVal;
+                return this.TypeVal;
             }
         }
 
@@ -40,23 +40,27 @@ namespace Excercise_1
 
         public double Calculate(double value)
         {
-            OnCalculate?.Invoke(this, value);
-            int i = 0;
-            double lastResult = 0;
+            int i = 0;                  // counts iterations of loop
+            double lastResult = 0;      // outout of last function
+
+            // pass each function step by step
             foreach (Func<double, double> function in this.listOfMissions)
             {
+
+                // if this is the first iteration
                 if (i == 0)
                 {
-                    lastResult = function(value);
+                    lastResult = function(value);       // use given value as function's input
                 } 
 
                 else
                 {
-                    lastResult = function(lastResult);
+                    lastResult = function(lastResult);      // use output of last func. as input
                 }
 
                 i++;
             }
+            OnCalculate?.Invoke(this, lastResult);      //calculation has been handeled
             return lastResult;
         }
 
